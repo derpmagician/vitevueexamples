@@ -58,3 +58,15 @@
   font-weight: normal;
 }
 
+/* Estilos para el modo oscuro */
+#app.dark-mode {
+  background-color: #121212; /* Color de fondo oscuro */
+  color: #ffffff; /* Color de texto claro */
+}
+
+#app.dark-mode canvas {
+  border: 1px solid #ffffff; /* Borde del canvas en modo oscuro */
+}
+
+/* Otros estilos para el modo oscuro */
+
