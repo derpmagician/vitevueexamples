@@ -13,15 +13,30 @@ export default {
 </script>
 
 <template>
-  <div class="home">
-    <h1>Bienvenido a la Aplicación Vue</h1>
-    <p>Esta es una aplicación de ejemplo utilizando Vue y Vite.</p>
+  <div class="home-container">
+    <h1>Bienvenido a los Juegos</h1>
+    <p>Selecciona un juego para comenzar.</p>
+    <button @click="$emit('startGame')" class="start-button">Iniciar Juegos</button>
   </div>
 </template>
 
 <style scoped>
-.home {
+.home-container {
   text-align: center;
-  margin-top: 20px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #6200ea;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #3700b3;
 }
 </style>

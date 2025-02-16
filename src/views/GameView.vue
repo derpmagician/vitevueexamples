@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="game-view">
     <h1>Selecciona un Juego</h1>
-    <button @click="selectGame('pointCatching')">Juego de Caza de Puntos</button>
-    <button @click="selectGame('freeDrawing')">Juego de Dibujo Libre</button>
-    <button @click="selectGame('pong')">Juego de Pong</button>
-    <button @click="selectGame('snake')">Juego de Snake</button>
+    <div class="button-container">
+      <button @click="selectGame('pointCatching')" class="game-button">Juego de Caza de Puntos</button>
+      <button @click="selectGame('freeDrawing')" class="game-button">Juego de Dibujo Libre</button>
+      <button @click="selectGame('pong')" class="game-button">Juego de Pong</button>
+      <button @click="selectGame('snake')" class="game-button">Juego de Snake</button>
+    </div>
 
     <component :is="currentGame" />
     <div class="description">
@@ -68,6 +70,33 @@ export default {
 </script>
 
 <style scoped>
+.game-view {
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  flex-wrap: wrap; /* Permite que los botones se envuelvan si no hay suficiente espacio */
+  margin-bottom: 20px;
+}
+
+.game-button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #6200ea;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.game-button:hover {
+  background-color: #3700b3;
+}
+
 .description {
   margin-top: 20px;
   font-size: 16px;

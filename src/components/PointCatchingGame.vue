@@ -1,13 +1,24 @@
 <template>
   <div class="game-container">
-    <h2>Juego de Caza de Puntos</h2>
-    <canvas ref="gameCanvas" width="400" height="400" @mousemove="updateMousePosition" @click="catchPoint"></canvas>
-    <p>Puntos: {{ score }}</p>
+    <h2>
+      <button @click="showGame" class="title-button">Juego de Caza de Puntos</button>
+      <button @click="toggleTutorial" class="tutorial-button">Descripción del Juego</button>
+    </h2>
+    <div v-if="isGameVisible">
+      <canvas ref="gameCanvas" width="600" height="600" @mousemove="updateMousePosition" @click="catchPoint"></canvas>
+      <p>Puntos: {{ score }}</p>
+    </div>
+    <PointCatchingTutorial v-if="showTutorial" />
   </div>
 </template>
 
 <script>
+import PointCatchingTutorial from './PointCatchingTutorial.vue';
+
 export default {
+  components: {
+    PointCatchingTutorial,
+  },
   data() {
     return {
       score: 0, // Puntuación del jugador
@@ -16,6 +27,8 @@ export default {
       animationFrameId: null, // ID del frame de animación
       mousePosition: { x: 0, y: 0 }, // Posición del mouse
       arcSize: 10, // Tamaño del arco azul
+      showTutorial: false, // Controla la visibilidad del tutorial
+      isGameVisible: true, // Controla la visibilidad del juego
     };
   },
   mounted() {
@@ -26,6 +39,14 @@ export default {
     cancelAnimationFrame(this.animationFrameId); // Cancela la animación al destruir el componente
   },
   methods: {
+    toggleTutorial() {
+      this.showTutorial = !this.showTutorial; // Alterna la visibilidad del tutorial
+      this.isGameVisible = false; // Oculta el juego al mostrar el tutorial
+    },
+    showGame() {
+      this.isGameVisible = true; // Muestra el juego
+      this.showTutorial = false; // Oculta el tutorial
+    },
     drawPoint() {
       const canvas = this.$refs.gameCanvas; // Obtiene el canvas
       const ctx = canvas.getContext('2d'); // Obtiene el contexto 2D del canvas
@@ -38,10 +59,10 @@ export default {
       ctx.fill();
 
       // Dibuja el arco azul que sigue al mouse
-      ctx.strokeStyle = 'blue'; // Color del arco
+      ctx.strokeStyle = 'yellow'; // Color del arco
       ctx.lineWidth = 2; // Grosor del arco
       ctx.beginPath();
-      ctx.arc(this.mousePosition.x, this.mousePosition.y, this.arcSize, 0, Math.PI * 2); // Dibuja un círculo azul con tamaño variable
+      ctx.arc(this.mousePosition.x, this.mousePosition.y, this.arcSize, 0, Math.PI * 2); // Dibuja un círculo azul
       ctx.stroke();
     },
     catchPoint(event) {
@@ -116,5 +137,31 @@ export default {
 }
 canvas {
   border: 1px solid #000; /* Borde del canvas */
+}
+.tutorial-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #ff5722; /* Color del botón de descripción */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.tutorial-button:hover {
+  background-color: #e64a19; /* Color del botón al pasar el mouse */
+}
+.title-button {
+  background-color: #6200ea; /* Color del botón del título */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.title-button:hover {
+  background-color: #3700b3; /* Color del botón del título al pasar el mouse */
 }
 </style> 

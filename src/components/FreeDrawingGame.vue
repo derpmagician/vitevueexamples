@@ -17,7 +17,7 @@
         <option value="square">Cuadrado</option>
       </select>
     </div>
-    <canvas ref="drawingCanvas" width="400" height="400" @mousedown="startDrawing" @mouseup="stopDrawing" @mousemove="draw"></canvas>
+    <canvas ref="gameCanvas" width="600" height="600" @mousedown="startDrawing" @mouseup="stopDrawing" @mousemove="draw"></canvas>
     <p>¡Dibuja algo!</p>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
     },
     startDrawing(event) {
       this.isDrawing = true; // Inicia el estado de dibujo
-      const canvas = this.$refs.drawingCanvas; // Obtiene el canvas
+      const canvas = this.$refs.gameCanvas; // Obtiene el canvas
       const rect = canvas.getBoundingClientRect(); // Obtiene el rectángulo del canvas
       this.lastX = event.clientX - rect.left; // Guarda la posición inicial X
       this.lastY = event.clientY - rect.top; // Guarda la posición inicial Y
@@ -53,7 +53,7 @@ export default {
     draw(event) {
       if (!this.isDrawing) return; // Si no está dibujando, no hace nada
 
-      const canvas = this.$refs.drawingCanvas; // Obtiene el canvas
+      const canvas = this.$refs.gameCanvas; // Obtiene el canvas
       const ctx = canvas.getContext('2d'); // Obtiene el contexto 2D del canvas
       const rect = canvas.getBoundingClientRect(); // Obtiene el rectángulo del canvas
 

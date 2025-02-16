@@ -1,34 +1,53 @@
 <script>
+import HomeView from './views/HomeView.vue';
+import GameView from './views/GameView.vue';
+
 export default {
-  name: 'App',
+  components: {
+    HomeView,
+    GameView,
+  },
   data() {
     return {
-      isDarkMode: false, // Estado del modo oscuro
+      inGame: false,
+      isDarkMode: true, // Cambia a false para modo claro
     };
   },
   methods: {
-    toggleDarkMode() {
-      this.isDarkMode = !this.isDarkMode; // Alterna el estado del modo oscuro
-      console.log('Modo oscuro:', this.isDarkMode); // Verifica el estado
+    startGame() {
+      this.inGame = true;
+    },
+    endGame() {
+      this.inGame = false;
     },
   },
-}
+};
 </script>
 
 <template>
   <div id="app" :class="{ 'dark-mode': isDarkMode }">
-    <h1>Bienvenido a mi SPA con Vue y Vite</h1>
-    <button @click="toggleDarkMode">Toggle Dark Mode</button>
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/game">Juego</router-link>
-    </nav>
-    <router-view></router-view>
+    <HomeView v-if="!inGame" @startGame="startGame" />
+    <GameView v-else @endGame="endGame" />
   </div>
 </template>
 
 <style>
-/* Estilos globales */
-@import './assets/base.css';
-@import './assets/main.css';
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 </style>
